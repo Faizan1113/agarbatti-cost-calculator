@@ -147,11 +147,9 @@ ui <- fluidPage(
           numericInput("raw_price", label = NULL,
                        value = NA_real_, min = 0, step = 1, width = "100%")
         )
-      ),
-
-      div(style = "background:#e8f5e9; border-radius:8px; padding:10px 14px; font-size:0.82rem; color:#2e7d32; font-weight:500; margin-top:6px;",
-        "\u2139\uFE0F  કાચી અગરબત્તી નો વજન આપોઆપ ગણાઈ જશે — તમારે દાખલ કરવાની જરૂર નથી."
       )
+
+      
     ),
 
     # ── ઈ: લેબલ અને પેકેજિંગ ──
@@ -165,7 +163,7 @@ ui <- fluidPage(
         tags$label(`for` = "label_charge", "કુલ લેબલ + પેકેજિંગ ચાર્જ (₹)"),
         div(class = "rupee-wrap",
           numericInput("label_charge", label = NULL,
-                       value = NA_real_, min = 0, step = 1, width = "100%")
+                       value = 1, min = 0, step = 1, width = "100%")
         ),
         tags$p(style = "font-size:0.78rem; color:#777; margin-top:6px;",
                "પેકેટ સંખ્યા દાખલ કરતાં આ આંક આપોઆપ આવી જશે. જરૂર પડ્યે બદલી શકો.")
@@ -193,13 +191,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  # ── Auto-fill label_charge from num_packets (user can still override) ──
-  observe({
-    np <- input$num_packets
-    if (!is.null(np) && !is.na(np) && is.finite(np) && np > 0) {
-      updateNumericInput(session, "label_charge", value = np)
-    }
-  })
+
 
   DEFAULTS <- list(
     perfume_wt    = NA_real_,
